@@ -9,5 +9,6 @@ license = "MIT or Apache-2.0"
 
 [dependencies]
 anyhow = "1.0.91"
+dashmap = "6.1.0"
 oneshot = "0.1.8"
 rand = "0.8.5"
