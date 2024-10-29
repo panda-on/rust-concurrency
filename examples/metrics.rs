@@ -10,7 +10,7 @@ const M: usize = 8;
 fn main() -> Result<()> {
     let metrics = Metrics::new();
 
-    println!("{:?}", metrics.snapshot());
+    println!("{}", metrics);
 
     // start N task workers
     for idx in 0..N {
@@ -23,7 +23,7 @@ fn main() -> Result<()> {
     }
 
     loop {
-        println!("{:?}", metrics.snapshot());
+        println!("{}", metrics);
         thread::sleep(Duration::from_secs(1));
     }
 }
