@@ -9,4 +9,5 @@ license = "MIT or Apache-2.0"
 
 [dependencies]
 anyhow = "1.0.91"
+oneshot = "0.1.8"
 rand = "0.8.5"
