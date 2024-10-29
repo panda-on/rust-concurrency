@@ -30,23 +30,27 @@ fn main() -> Result<()> {
 
 fn task_workers(idx: usize, metrics: Metrics) {
     // threads to do some work
-    thread::spawn(move || loop {
-        let mut rng = rand::thread_rng();
-        thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
-        metrics
-            .incr(format!("worker.thread.{}", idx))
-            .expect("task thread failed");
+    thread::spawn(move || {
+        loop {
+            let mut rng = rand::thread_rng();
+            thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
+            metrics.incr(format!("worker.thread.{}", idx))?;
+        }
+        #[allow(unreachable_code)]
+        Ok::<_, anyhow::Error>(())
     });
 }
 
 fn request_worker(metrics: Metrics) {
     // requests to do some work
-    thread::spawn(move || loop {
-        let mut rng = rand::thread_rng();
-        thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
-        let page_no = rng.gen_range(1..10);
-        metrics
-            .incr(format!("req.page.{}", page_no))
-            .expect("request thread failed");
+    thread::spawn(move || {
+        loop {
+            let mut rng = rand::thread_rng();
+            thread::sleep(Duration::from_millis(rng.gen_range(100..5000)));
+            let page_no = rng.gen_range(1..10);
+            metrics.incr(format!("req.page.{}", page_no))?;
+        }
+        #[allow(unreachable_code)]
+        Ok::<_, anyhow::Error>(())
     });
 }

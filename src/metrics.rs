@@ -24,7 +24,7 @@ impl Metrics {
     }
 
     pub fn incr(&self, key: impl Into<String>) -> Result<()> {
-        let mut data = self.data.lock().unwrap();
+        let mut data = self.data.lock().map_err(|e| anyhow!(e.to_string()))?;
         let counter = data.entry(key.into()).or_insert(0);
         *counter += 1;
         Ok(())
