@@ -17,7 +17,6 @@ impl AmapMetrics {
     pub fn new(metric_names: &[&'static str]) -> Self {
         let map = metric_names
             .iter()
-            // todo: find a reason why this should be &name
             .map(|&name| (name, AtomicI64::new(0)))
             .collect();
         Self {
@@ -31,7 +30,6 @@ impl AmapMetrics {
             .data
             .get(key)
             .ok_or_else(|| anyhow!("key: {} not found", key))?;
-        // todo: what this code snippet does?
         counter.fetch_add(1, Ordering::Relaxed);
         Ok(())
     }
